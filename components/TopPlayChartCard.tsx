@@ -10,7 +10,7 @@ interface Props {
   isPlaying?: boolean;
   activeSong?: Song;
   handlePause: () => void;
-  handlePlay: (song: Song, data: Song[], i: number) => void;
+  handlePlay: () => void;
 }
 
 const TopPlayChartCard: React.FC<Props> = ({
