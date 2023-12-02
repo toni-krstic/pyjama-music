@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useContext, Fragment } from "react";
+import React, { Dispatch, Fragment, SetStateAction } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa";
 
 import { genres } from "@/assets/constants";
-import { PlayerContext } from "@/context/PlayerContext";
 
-const DropDown = () => {
-  const context = useContext(PlayerContext);
+interface props {
+  genreListId: string;
+  setGenreListId: Dispatch<SetStateAction<string>>;
+}
 
-  const genreTitle = genres.find(
-    ({ value }) => value === context?.genreListId
-  )?.title;
+const DropDown: React.FC<props> = ({ genreListId, setGenreListId }) => {
+  const genreTitle = genres.find(({ value }) => value === genreListId)?.title;
 
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
@@ -50,7 +50,7 @@ const DropDown = () => {
                 <Menu.Item key={genre.value}>
                   {({ active }) => (
                     <span
-                      onClick={(e) => context?.selectGenreListId(genre.value)}
+                      onClick={(e) => setGenreListId(genre.value)}
                       className={classNames(
                         active
                           ? "bg-gradient-to-br from-white/10 to-[#2424bb] backdrop-blur-lg text-gray-100"

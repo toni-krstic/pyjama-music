@@ -1,82 +1,99 @@
 "use client";
 
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
-import { PlayerContext } from "@/context/PlayerContext";
 import Controls from "./Controls";
 import Player from "./Player";
 import Seekbar from "./Seekbar";
 import Track from "./Track";
 import VolumeBar from "./VolumeBar";
+import { useAtom } from "jotai";
+import {
+  activeSongAtom,
+  currentIndexAtom,
+  currentSongsAtom,
+  isActiveAtom,
+  isPlayingAtom,
+} from "@/atoms/atoms";
 
 const MusicPlayer = () => {
-  const context = useContext(PlayerContext);
   const [duration, setDuration] = useState<number>(0);
   const [seekTime, setSeekTime] = useState<number>(0);
   const [appTime, setAppTime] = useState<number>(0);
   const [volume, setVolume] = useState<number>(0.3);
   const [repeat, setRepeat] = useState<boolean>(false);
   const [shuffle, setShuffle] = useState<boolean>(false);
+  const [currentSongs] = useAtom(currentSongsAtom);
+  const [currentIndex, setCurrentIndex] = useAtom(currentIndexAtom);
+  const [isActive, setIsActive] = useAtom(isActiveAtom);
+  const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
+  const [activeSong, setActiveSong] = useAtom(activeSongAtom);
 
   useEffect(() => {
-    if (context?.currentSongs?.length) context?.playPause(true);
-  }, [context?.currentIndex]);
+    if (currentSongs.length) setIsPlaying(true);
+  }, [currentIndex]);
 
   const handlePlayPause = () => {
-    if (!context?.isActive) return;
-
-    if (context?.isPlaying) {
-      context?.playPause(false);
+    if (isPlaying) {
+      setIsPlaying(false);
     } else {
-      context?.playPause(true);
+      setIsPlaying(true);
     }
   };
 
   const handleNextSong = () => {
-    context?.playPause(false);
+    setIsPlaying(false);
 
     if (!shuffle) {
-      context?.nextSong(
-        (context?.currentIndex + 1) % context?.currentSongs?.length
-      );
+      let index = (currentIndex + 1) % currentSongs.length;
+      setActiveSong(currentSongs[index]);
+      setCurrentIndex(index);
+      setIsActive(true);
     } else {
-      context?.nextSong(
-        Math.floor(Math.random() * context?.currentSongs?.length)
-      );
+      let index = Math.floor(Math.random() * currentSongs.length);
+      setActiveSong(currentSongs[index]);
+      setCurrentIndex(index);
+      setIsActive(true);
     }
   };
 
   const handlePrevSong = () => {
-    if (context?.currentIndex === 0) {
-      context?.prevSong(context?.currentSongs?.length - 1);
+    if (currentIndex === 0) {
+      let index = currentSongs.length - 1;
+      setActiveSong(currentSongs[index]);
+      setCurrentIndex(index);
+      setIsActive(true);
     } else if (shuffle) {
-      context?.prevSong(
-        Math.floor(Math.random() * context?.currentSongs?.length)
-      );
+      let index = Math.floor(Math.random() * currentSongs.length);
+      setActiveSong(currentSongs[index]);
+      setCurrentIndex(index);
+      setIsActive(true);
     } else {
-      context?.prevSong(context?.currentIndex - 1);
+      let index = currentIndex - 1;
+      setActiveSong(currentSongs[index]);
+      setCurrentIndex(index);
+      setIsActive(true);
     }
   };
 
   return (
     <>
-      {(context?.activeSong?.title ||
-        context?.activeSong?.attributes?.name) && (
+      {(activeSong?.title || activeSong?.attributes?.name) && (
         <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
           <div className="relative sm:px-12 px-8 w-full flex items-center justify-between">
             <Track
-              isPlaying={context?.isPlaying}
-              isActive={context?.isActive}
-              activeSong={context?.activeSong}
+              isPlaying={isPlaying}
+              isActive={isActive}
+              activeSong={activeSong}
             />
             <div className="flex-1 flex flex-col items-center justify-center">
               <Controls
-                isPlaying={context?.isPlaying}
+                isPlaying={isPlaying}
                 repeat={repeat}
                 setRepeat={setRepeat}
                 shuffle={shuffle}
                 setShuffle={setShuffle}
-                currentSongs={context?.currentSongs}
+                currentSongs={currentSongs}
                 handlePlayPause={handlePlayPause}
                 handlePrevSong={handlePrevSong}
                 handleNextSong={handleNextSong}
@@ -92,9 +109,9 @@ const MusicPlayer = () => {
                 appTime={appTime}
               />
               <Player
-                activeSong={context?.activeSong}
+                activeSong={activeSong}
                 volume={volume}
-                isPlaying={context?.isPlaying}
+                isPlaying={isPlaying}
                 seekTime={seekTime}
                 repeat={repeat}
                 onEnded={handleNextSong}

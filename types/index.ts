@@ -98,22 +98,3 @@ interface ArtistTopSongsArtwork {
 interface PreviewArtistTopSongs {
   url: string;
 }
-
-export interface PlayerContextType {
-  currentSongs: Song[];
-  currentIndex: number;
-  isActive: boolean;
-  isPlaying: boolean;
-  activeSong?: Song;
-  genreListId: string;
-  selectActiveSong: (song: Song, data: Song[], i: number) => void;
-  nextSong: (i: number) => void;
-  prevSong: (i: number) => void;
-  playPause: (play: boolean) => void;
-  selectGenreListId: (id: string) => void;
-  getTopCharts: () => Songs | Promise<Songs>;
-  getSongsBySearch: (searchTerm: string) => Search | Promise<Search>;
-  getSongsByGenre: (genre: string) => Songs | Promise<Songs>;
-  getSongsByCountry: (countryCode: string) => Songs | Promise<Songs>;
-  getSongsByArtist: (artistId: string) => Songs | Promise<Songs>;
-}

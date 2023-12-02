@@ -1,11 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useContext } from "react";
 
-import { PlayerContext } from "@/context/PlayerContext";
 import PlayPause from "./PlayPause";
 import { Song } from "@/types";
+import {
+  activeSongAtom,
+  currentIndexAtom,
+  currentSongsAtom,
+  isActiveAtom,
+  isPlayingAtom,
+} from "@/atoms/atoms";
+import { useSetAtom } from "jotai";
 
 interface Props {
   song: Song;
@@ -28,15 +34,26 @@ const SongCard: React.FC<Props> = ({
   data,
   adamid,
 }) => {
-  const context = useContext(PlayerContext);
+  const setCurrentSongs = useSetAtom(currentSongsAtom);
+  const setCurrentIndex = useSetAtom(currentIndexAtom);
+  const setIsActive = useSetAtom(isActiveAtom);
+  const setIsPlaying = useSetAtom(isPlayingAtom);
+  const setActiveSong = useSetAtom(activeSongAtom);
 
   const handlePauseClick = () => {
-    context?.playPause(false);
+    setIsPlaying(false);
+  };
+
+  const selectActiveSong = (song: Song, data: Song[], i: number) => {
+    setActiveSong(song);
+    setCurrentSongs(data);
+    setCurrentIndex(i);
+    setIsActive(true);
   };
 
   const handlePlayClick = () => {
-    data && context?.selectActiveSong(song, data, i);
-    context?.playPause(true);
+    data && selectActiveSong(song, data, i);
+    setIsPlaying(true);
   };
 
   return (
