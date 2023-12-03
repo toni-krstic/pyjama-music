@@ -2,31 +2,15 @@
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { ArtistCard, Error } from ".";
-import { Songs } from "@/types";
+import { Songs } from "@/core/types";
+import { getSongs, serviceUrl } from "@/core/services/services";
+import { Error } from "./Error";
+import { ArtistCard } from "./ArtistCard";
 
-const getTopCharts = async () => {
-  try {
-    const response = await fetch("https://shazam.p.rapidapi.com/charts/track", {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY as string,
-        "X-RapidAPI-Host": "shazam.p.rapidapi.com",
-      },
-    });
-    if (response.ok) {
-      const result = await response.json();
-      return result;
-    }
-  } catch (err) {
-    return err;
-  }
-};
-
-const TopArtistChart = () => {
+export const TopArtistChart = () => {
   const { data, error } = useSuspenseQuery<Songs>({
     queryKey: ["topCharts"],
-    queryFn: getTopCharts,
+    queryFn: () => getSongs(serviceUrl.topCharts()),
   });
 
   if (error) return <Error />;
@@ -39,5 +23,3 @@ const TopArtistChart = () => {
     </div>
   );
 };
-
-export default TopArtistChart;

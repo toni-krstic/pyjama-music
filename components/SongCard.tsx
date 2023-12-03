@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 
-import PlayPause from "./PlayPause";
-import { Song } from "@/types";
+import { PlayPause } from "./PlayPause";
+import { Song } from "@/core/types";
 import {
   activeSongAtom,
   currentIndexAtom,
@@ -12,6 +12,8 @@ import {
   isPlayingAtom,
 } from "@/atoms/atoms";
 import { useSetAtom } from "jotai";
+import { replaceImgUrl } from "@/core/helpers/helpers";
+import classNames from "classnames";
 
 interface Props {
   song: Song;
@@ -22,11 +24,7 @@ interface Props {
   adamid?: string;
 }
 
-const replaceImgUrl = (inputUrl: string) => {
-  return inputUrl.replace(/{w}x{h}bb.jpg$/, "400x400.jpg");
-};
-
-const SongCard: React.FC<Props> = ({
+export const SongCard: React.FC<Props> = ({
   song,
   isPlaying,
   activeSong,
@@ -60,17 +58,17 @@ const SongCard: React.FC<Props> = ({
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
       <div className="relative w-full h-56 group">
         <div
-          className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${
-            activeSong?.title === song.title &&
-            activeSong?.subtitle === song.subtitle
-              ? "flex bg-black bg-opacity-70"
-              : "hidden"
-          } ${
-            activeSong?.attributes?.name === song.attributes?.name &&
-            activeSong?.attributes?.artistName === song.attributes?.artistName
-              ? "flex bg-black bg-opacity-70"
-              : "hidden"
-          }`}
+          className={classNames(
+            "absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex hidden",
+            {
+              "flex bg-black bg-opacity-70":
+                (activeSong?.title === song.title &&
+                  activeSong?.subtitle === song.subtitle) ||
+                (activeSong?.attributes?.name === song.attributes?.name &&
+                  activeSong?.attributes?.artistName ===
+                    song.attributes?.artistName),
+            }
+          )}
         >
           <PlayPause
             isPlaying={isPlaying}
@@ -110,5 +108,3 @@ const SongCard: React.FC<Props> = ({
     </div>
   );
 };
-
-export default SongCard;

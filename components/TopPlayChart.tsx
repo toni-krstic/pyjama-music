@@ -2,8 +2,7 @@
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { Error, TopPlayChartCard } from ".";
-import { Song, Songs } from "@/types";
+import { Song, Songs } from "@/core/types";
 import { useAtom, useSetAtom } from "jotai";
 import {
   activeSongAtom,
@@ -12,26 +11,11 @@ import {
   isActiveAtom,
   isPlayingAtom,
 } from "@/atoms/atoms";
+import { Error } from "./Error";
+import { TopPlayChartCard } from "./TopPlayChartCard";
+import { getSongs, serviceUrl } from "@/core/services/services";
 
-const getTopCharts = async () => {
-  try {
-    const response = await fetch("https://shazam.p.rapidapi.com/charts/track", {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": process.env.NEXT_PUBLIC_X_RAPIDAPI_KEY as string,
-        "X-RapidAPI-Host": "shazam.p.rapidapi.com",
-      },
-    });
-    if (response.ok) {
-      const result = await response.json();
-      return result;
-    }
-  } catch (err) {
-    return err;
-  }
-};
-
-const TopPlayChart = () => {
+export const TopPlayChart = () => {
   const setCurrentSongs = useSetAtom(currentSongsAtom);
   const setCurrentIndex = useSetAtom(currentIndexAtom);
   const setIsActive = useSetAtom(isActiveAtom);
@@ -39,12 +23,12 @@ const TopPlayChart = () => {
   const [activeSong, setActiveSong] = useAtom(activeSongAtom);
   const { data, error } = useSuspenseQuery<Songs>({
     queryKey: ["topCharts-TopPlay"],
-    queryFn: getTopCharts,
+    queryFn: () => getSongs(serviceUrl.topCharts()),
   });
 
-  if (error) return <Error />;
-
   const topPlays = data.tracks?.slice(0, 5);
+
+  if (error || !topPlays) return <Error />;
 
   const handlePauseClick = () => {
     setIsPlaying(false);
@@ -64,7 +48,7 @@ const TopPlayChart = () => {
 
   return (
     <div className="mt-4 flex flex-col gap-1">
-      {topPlays?.map((song, i) => (
+      {topPlays.map((song, i) => (
         <TopPlayChartCard
           key={song.key}
           song={song}
@@ -78,5 +62,3 @@ const TopPlayChart = () => {
     </div>
   );
 };
-
-export default TopPlayChart;

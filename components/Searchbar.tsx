@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiSearch } from "react-icons/fi";
 
-const Searchbar = () => {
+export const Searchbar = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -41,4 +41,3 @@ const Searchbar = () => {
     </form>
   );
 };
-export default Searchbar;

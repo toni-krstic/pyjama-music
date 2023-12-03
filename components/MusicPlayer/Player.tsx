@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 
-import { Song } from "@/types";
+import { Song } from "@/core/types";
 
 interface Props {
   activeSong?: Song;
@@ -15,7 +15,7 @@ interface Props {
   repeat: boolean;
 }
 
-const Player: React.FC<Props> = ({
+export const Player: React.FC<Props> = ({
   activeSong,
   isPlaying,
   volume,
@@ -27,13 +27,15 @@ const Player: React.FC<Props> = ({
 }) => {
   const ref = useRef<HTMLAudioElement>(null);
 
-  if (ref.current) {
-    if (isPlaying) {
-      ref.current.play();
-    } else {
-      ref.current.pause();
+  useEffect(() => {
+    if (ref.current) {
+      if (isPlaying) {
+        ref.current.play();
+      } else {
+        ref.current.pause();
+      }
     }
-  }
+  }, [isPlaying, activeSong]);
 
   useEffect(() => {
     if (ref.current) {
@@ -47,14 +49,16 @@ const Player: React.FC<Props> = ({
     }
   }, [seekTime]);
 
+  if (!activeSong) return null;
+
   return (
     <audio
       src={
-        activeSong?.hub?.actions
-          ? activeSong?.hub?.actions[1]?.uri
-          : activeSong?.hub?.options
-          ? activeSong?.hub?.options[0].actions[1].uri
-          : activeSong?.attributes?.previews[0].url
+        activeSong.hub?.actions
+          ? activeSong.hub?.actions[1]?.uri
+          : activeSong.hub?.options
+          ? activeSong.hub?.options[0].actions[1].uri
+          : activeSong.attributes?.previews[0].url
       }
       ref={ref}
       loop={repeat}
@@ -65,5 +69,3 @@ const Player: React.FC<Props> = ({
     />
   );
 };
-
-export default Player;

@@ -2,32 +2,30 @@
 
 import { useRouter } from "next/navigation";
 
-import { Song } from "@/types";
+import { Song } from "@/core/types";
 
 interface Props {
-  song?: Song;
+  song: Song;
 }
 
-const ArtistCard: React.FC<Props> = ({ song }) => {
+export const ArtistCard: React.FC<Props> = ({ song }) => {
   const router = useRouter();
 
   return (
     <div
       className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer"
       onClick={() =>
-        song?.artists && router.push(`/artists/${song?.artists[0]?.adamid}`)
+        song.artists && router.push(`/artists/${song.artists[0].adamid}`)
       }
     >
       <img
-        src={song?.images?.coverart}
+        src={song.images?.coverart}
         alt="artist"
         className="w-full h-56 rounded-lg"
       />
       <p className="mt-4 font-semibold text-lg text-white truncate">
-        {song?.subtitle}
+        {song.subtitle}
       </p>
     </div>
   );
 };
-
-export default ArtistCard;

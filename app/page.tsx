@@ -1,6 +1,6 @@
+import { GenreChart } from "@/components/GenreChart";
+import { Loader } from "@/components/Loader";
 import { Suspense } from "react";
-
-import { Loader, GenreChart, DropDown } from "@/components";
 
 export default function Home() {
   return (

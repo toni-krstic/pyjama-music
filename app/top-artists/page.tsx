@@ -1,7 +1,8 @@
-import { TopArtistChart, Loader } from "@/components";
+import { Loader } from "@/components/Loader";
+import { TopArtistChart } from "@/components/TopArtistChart";
 import { Suspense } from "react";
 
-const page = () => {
+export default function page() {
   return (
     <div className="flex flex-col">
       <h2 className="font-bold font-3xl text-white text-leftmt-4 mb-10">
@@ -12,6 +13,4 @@ const page = () => {
       </Suspense>
     </div>
   );
-};
-
-export default page;
+}

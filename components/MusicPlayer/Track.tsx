@@ -1,6 +1,8 @@
 "use client";
 
-import { Song } from "@/types";
+import { replaceImgUrl } from "@/core/helpers/helpers";
+import { Song } from "@/core/types";
+import classNames from "classnames";
 
 interface Props {
   isPlaying?: boolean;
@@ -8,16 +10,12 @@ interface Props {
   activeSong?: Song;
 }
 
-const replaceImgUrl = (inputUrl: string) => {
-  return inputUrl.replace(/{w}x{h}bb.jpg$/, "400x400.jpg");
-};
-
-const Track: React.FC<Props> = ({ isPlaying, isActive, activeSong }) => (
+export const Track: React.FC<Props> = ({ isPlaying, isActive, activeSong }) => (
   <div className="flex-1 flex items-center justify-start">
     <div
-      className={`${
-        isPlaying && isActive ? "animate-[spin_3s_linear_infinite]" : ""
-      } hidden sm:block h-16 w-16 mr-4`}
+      className={classNames("hidden sm:block h-16 w-16 mr-4", {
+        "animate-[spin_3s_linear_infinite]": isPlaying && isActive,
+      })}
     >
       {activeSong?.images && (
         <img
@@ -52,5 +50,3 @@ const Track: React.FC<Props> = ({ isPlaying, isActive, activeSong }) => (
     </div>
   </div>
 );
-
-export default Track;

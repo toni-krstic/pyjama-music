@@ -2,7 +2,7 @@
 
 import { FaPauseCircle, FaPlayCircle } from "react-icons/fa";
 
-import { Song } from "@/types";
+import { Song } from "@/core/types";
 
 interface Props {
   isPlaying?: boolean;
@@ -12,33 +12,35 @@ interface Props {
   handlePlay: () => void;
 }
 
-const PlayPause: React.FC<Props> = ({
+export const PlayPause: React.FC<Props> = ({
   isPlaying,
   activeSong,
   song,
   handlePause,
   handlePlay,
-}) =>
-  isPlaying &&
-  activeSong?.title &&
-  activeSong.title === song.title &&
-  activeSong.subtitle === song.subtitle ? (
-    <FaPauseCircle
-      data-testid="pause-icon"
-      size={35}
-      className="text-gray-300"
-      onClick={handlePause}
-    />
-  ) : isPlaying &&
+}) => {
+  const isSongPlaying =
+    isPlaying &&
+    activeSong?.title &&
+    activeSong.title === song.title &&
+    activeSong.subtitle === song.subtitle;
+
+  const isArtistSongPlaying =
+    isPlaying &&
     activeSong?.attributes &&
-    activeSong.attributes.name === song.attributes?.name ? (
-    <FaPauseCircle
-      data-testid="pause-icon"
-      size={35}
-      className="text-gray-300"
-      onClick={handlePause}
-    />
-  ) : (
+    activeSong.attributes.name === song.attributes?.name;
+
+  if (isSongPlaying || isArtistSongPlaying)
+    return (
+      <FaPauseCircle
+        data-testid="pause-icon"
+        size={35}
+        className="text-gray-300"
+        onClick={handlePause}
+      />
+    );
+
+  return (
     <FaPlayCircle
       data-testid="play-icon"
       size={35}
@@ -46,5 +48,4 @@ const PlayPause: React.FC<Props> = ({
       onClick={handlePlay}
     />
   );
-
-export default PlayPause;
+};

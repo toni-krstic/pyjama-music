@@ -15,7 +15,7 @@ interface Props {
   setVolume: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const VolumeBar: React.FC<Props> = ({
+export const VolumeBar: React.FC<Props> = ({
   value,
   min,
   max,
@@ -59,5 +59,3 @@ const VolumeBar: React.FC<Props> = ({
     />
   </div>
 );
-
-export default VolumeBar;

@@ -1,12 +1,12 @@
 import Image from "next/image";
 
-import { loader } from "@/assets";
+import loader from "@/assets/loader.svg";
 
 interface Props {
   title?: string;
 }
 
-const Loader: React.FC<Props> = ({ title }) => (
+export const Loader: React.FC<Props> = ({ title }) => (
   <div className="w-full flex justify-center items-center flex-col">
     <Image src={loader} alt="loader" />
     <h1 className="font-bold text-2xl text-white mt-2">
@@ -14,5 +14,3 @@ const Loader: React.FC<Props> = ({ title }) => (
     </h1>
   </div>
 );
-
-export default Loader;

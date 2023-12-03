@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import { TopPlayChartCard } from "@/components";
-import { Song } from "@/types";
+import { Song } from "@/core/types";
 
 describe("TopPlayChartCard Component", () => {
   const mockSong: Song = {

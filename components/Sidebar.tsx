@@ -5,7 +5,8 @@ import Link from "next/link";
 import { RiCloseLine } from "react-icons/ri";
 import { HiOutlineMenu } from "react-icons/hi";
 
-import { links } from "@/assets/constants";
+import { links } from "@/core/constants/links";
+import classNames from "classnames";
 
 interface Props {
   handleClick?: () => void;
@@ -27,7 +28,7 @@ const NavLinks: React.FC<Props> = ({ handleClick }) => (
   </div>
 );
 
-const Sidebar = () => {
+export const Sidebar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <>
@@ -54,9 +55,12 @@ const Sidebar = () => {
 
       <div
         data-testid="mobile-menu"
-        className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#483D8B] backdrop-blur-lg z-10 p-6 md:hidden smooth-transition ${
-          mobileMenuOpen ? "left-0" : "-left-full"
-        }`}
+        className={classNames(
+          "absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#483D8B] backdrop-blur-lg z-10 p-6 md:hidden smooth-transition -left-full",
+          {
+            "left-0": mobileMenuOpen,
+          }
+        )}
       >
         <h1 className="text-lg">Pyjama Music</h1>
         <NavLinks handleClick={() => setMobileMenuOpen(false)} />
@@ -64,5 +68,3 @@ const Sidebar = () => {
     </>
   );
 };
-
-export default Sidebar;

@@ -1,5 +1,6 @@
 "use client";
 
+import { getTime } from "@/core/helpers/helpers";
 import React from "react";
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
   appTime: number;
 }
 
-const Seekbar: React.FC<Props> = ({
+export const Seekbar: React.FC<Props> = ({
   value,
   min,
   max,
@@ -19,10 +20,6 @@ const Seekbar: React.FC<Props> = ({
   setSeekTime,
   appTime,
 }) => {
-  // converts the time to format 0:00
-  const getTime = (time: number) =>
-    `${Math.floor(time / 60)}:${`0${Math.floor(time % 60)}`.slice(-2)}`;
-
   return (
     <div className="hidden sm:flex flex-row items-center">
       <button
@@ -54,5 +51,3 @@ const Seekbar: React.FC<Props> = ({
     </div>
   );
 };
-
-export default Seekbar;

@@ -2,8 +2,9 @@
 
 import React from "react";
 
-import PlayPause from "./PlayPause";
-import { Song } from "@/types";
+import { PlayPause } from "./PlayPause";
+import { Song } from "@/core/types";
+import classNames from "classnames";
 
 interface Props {
   song: Song;
@@ -14,7 +15,7 @@ interface Props {
   handlePlayClick: (song: Song, i: number) => void;
 }
 
-const SongBar: React.FC<Props> = ({
+export const SongBar: React.FC<Props> = ({
   song,
   i,
   isPlaying,
@@ -23,20 +24,23 @@ const SongBar: React.FC<Props> = ({
   handlePlayClick,
 }) => (
   <div
-    className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${
-      activeSong?.title === song?.title ? "bg-[#4c426e]" : "bg-transparent"
-    } py-2 p-4 rounded-lg cursor-pointer mb-2`}
+    className={classNames(
+      "w-full flex flex-row items-center hover:bg-[#4c426e] bg-transparent py-2 p-4 rounded-lg cursor-pointer mb-2",
+      {
+        "bg-[#4c426e]": activeSong?.title === song.title,
+      }
+    )}
   >
     <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
     <div className="flex-1 flex flex-row justify-between items-center">
       <img
         className="w-20 h-20 rounded-lg"
-        src={song?.images?.coverart}
-        alt={song?.title}
+        src={song.images?.coverart}
+        alt={song.title}
       />
       <div className="flex-1 flex flex-col justify-center mx-3">
-        <p className="text-xl font-bold text-white">{song?.title}</p>
-        <p className="text-base text-gray-300 mt-1">{song?.subtitle}</p>
+        <p className="text-xl font-bold text-white">{song.title}</p>
+        <p className="text-base text-gray-300 mt-1">{song.subtitle}</p>
       </div>
     </div>
     <PlayPause
@@ -48,5 +52,3 @@ const SongBar: React.FC<Props> = ({
     />
   </div>
 );
-
-export default SongBar;

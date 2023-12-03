@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import { PlayPause } from "@/components";
-import { Song } from "@/types";
+import { Song } from "@/core/types";
 
 describe("PlayPause Component", () => {
   const mockSong: Song = {

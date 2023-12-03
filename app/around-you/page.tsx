@@ -1,8 +1,8 @@
+import { AroundYouChart } from "@/components/AroundYouChart";
+import { Loader } from "@/components/Loader";
 import { Suspense } from "react";
 
-import { AroundYouChart, Loader } from "@/components";
-
-const page = () => {
+export default function page() {
   return (
     <div className="flex flex-col">
       <Suspense fallback={<Loader />}>
@@ -10,6 +10,4 @@ const page = () => {
       </Suspense>
     </div>
   );
-};
-
-export default page;
+}

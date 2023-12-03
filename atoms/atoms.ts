@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { Song } from "@/types";
+import { Song } from "@/core/types";
 
 export const currentSongsAtom = atom<Song[]>([]);
 export const currentIndexAtom = atom<number>(0);

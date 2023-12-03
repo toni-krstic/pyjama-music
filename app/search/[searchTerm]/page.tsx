@@ -1,8 +1,12 @@
+import { Loader } from "@/components/Loader";
+import { SearchChart } from "@/components/SearchChart";
 import { Suspense } from "react";
 
-import { Loader, SearchChart } from "@/components";
+interface props {
+  params: { searchTerm: string };
+}
 
-const page = ({ params }: { params: { searchTerm: string } }) => {
+export default function page({ params }: props) {
   return (
     <div className="flex flex-col">
       <h2 className="font-bold font-3xl text-white text-leftmt-4 mb-10">
@@ -14,6 +18,4 @@ const page = ({ params }: { params: { searchTerm: string } }) => {
       </Suspense>
     </div>
   );
-};
-
-export default page;
+}

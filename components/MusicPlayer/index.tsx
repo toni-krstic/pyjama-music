@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 
-import Controls from "./Controls";
-import Player from "./Player";
-import Seekbar from "./Seekbar";
-import Track from "./Track";
-import VolumeBar from "./VolumeBar";
+import { Controls } from "./Controls";
+import { Player } from "./Player";
+import { Seekbar } from "./Seekbar";
+import { Track } from "./Track";
+import { VolumeBar } from "./VolumeBar";
 import { useAtom } from "jotai";
 import {
   activeSongAtom,
@@ -16,7 +16,7 @@ import {
   isPlayingAtom,
 } from "@/atoms/atoms";
 
-const MusicPlayer = () => {
+export const MusicPlayer = () => {
   const [duration, setDuration] = useState<number>(0);
   const [seekTime, setSeekTime] = useState<number>(0);
   const [appTime, setAppTime] = useState<number>(0);
@@ -138,5 +138,3 @@ const MusicPlayer = () => {
     </>
   );
 };
-
-export default MusicPlayer;

@@ -1,8 +1,3 @@
-import { HiOutlineUserGroup } from "react-icons/hi";
-import { PiMusicNotesSimpleDuotone } from "react-icons/pi";
-import { AiTwotoneCustomerService } from "react-icons/ai";
-import { RiUserLocationLine } from "react-icons/ri";
-
 export const genres = [
   { title: "Electronic", value: "genre-global-chart-4" },
   { title: "Hip-Hop", value: "genre-global-chart-2" },
@@ -22,11 +17,4 @@ export const genres = [
   { title: "French Pop", value: "genre-global-chart-16" },
   { title: "Singer", value: "genre-global-chart-17" },
   { title: "Regional Mexicano", value: "genre-global-chart-18" },
-];
-
-export const links = [
-  { name: "Discover", to: "/", icon: AiTwotoneCustomerService },
-  { name: "Around You", to: "/around-you", icon: RiUserLocationLine },
-  { name: "Top Artists", to: "/top-artists", icon: HiOutlineUserGroup },
-  { name: "Top Charts", to: "/top-charts", icon: PiMusicNotesSimpleDuotone },
 ];

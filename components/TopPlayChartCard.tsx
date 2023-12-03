@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 
-import { PlayPause } from ".";
-import { Song } from "@/types";
+import { Song } from "@/core/types";
+import { PlayPause } from "./PlayPause";
 
 interface Props {
   song: Song;
@@ -13,7 +13,7 @@ interface Props {
   handlePlay: () => void;
 }
 
-const TopPlayChartCard: React.FC<Props> = ({
+export const TopPlayChartCard: React.FC<Props> = ({
   song,
   i,
   isPlaying,
@@ -26,18 +26,18 @@ const TopPlayChartCard: React.FC<Props> = ({
     <div className="flex-1 flex flex-row justify-between items-center">
       <img
         className="w-20 h-20 rounded-lg"
-        src={song?.images?.coverart}
-        alt={song?.title}
+        src={song.images?.coverart}
+        alt={song.title}
       />
       <div className="flex-1 flex flex-col justify-center mx-3">
-        <p className="text-xl font-bold text-white">{song?.title}</p>
+        <p className="text-xl font-bold text-white">{song.title}</p>
 
         <Link
           href={
-            song.artists ? `/songs/${song?.artists[0].adamid}` : "/top-artists"
+            song.artists ? `/songs/${song.artists[0].adamid}` : "/top-artists"
           }
         >
-          <p className="text-base mt-1 text-gray-300">{song?.subtitle}</p>
+          <p className="text-base mt-1 text-gray-300">{song.subtitle}</p>
         </Link>
       </div>
     </div>
@@ -50,5 +50,3 @@ const TopPlayChartCard: React.FC<Props> = ({
     />
   </div>
 );
-
-export default TopPlayChartCard;

@@ -6,7 +6,7 @@ import {
   BsShuffle,
 } from "react-icons/bs";
 
-import { Song } from "@/types";
+import { Song } from "@/core/types";
 
 interface Props {
   isPlaying?: boolean;
@@ -20,7 +20,7 @@ interface Props {
   handleNextSong: () => void;
 }
 
-const Controls: React.FC<Props> = ({
+export const Controls: React.FC<Props> = ({
   isPlaying,
   repeat,
   setRepeat,
@@ -81,5 +81,3 @@ const Controls: React.FC<Props> = ({
     />
   </div>
 );
-
-export default Controls;

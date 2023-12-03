@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import { Loader } from "./Loader";
+import { TopPlayChart } from "./TopPlayChart";
 
-import { Loader, TopPlayChart } from ".";
-
-const TopPlay = () => {
+export const TopPlay = () => {
   return (
     <div className="xl:ml-6 ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col">
       <div className="w-full flex flex-col">
@@ -20,5 +20,3 @@ const TopPlay = () => {
     </div>
   );
 };
-
-export default TopPlay;

@@ -1,8 +1,12 @@
+import { ArtistChart } from "@/components/ArtistChart";
+import { Loader } from "@/components/Loader";
 import { Suspense } from "react";
 
-import { ArtistChart, Loader } from "@/components";
+interface props {
+  params: { id: string };
+}
 
-const page = ({ params }: { params: { id: string } }) => {
+export default function page({ params }: props) {
   return (
     <div className="flex flex-col">
       <Suspense fallback={<Loader />}>
@@ -10,6 +14,4 @@ const page = ({ params }: { params: { id: string } }) => {
       </Suspense>
     </div>
   );
-};
-
-export default page;
+}

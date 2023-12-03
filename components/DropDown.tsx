@@ -3,20 +3,17 @@
 import React, { Dispatch, Fragment, SetStateAction } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa";
+import classNames from "classnames";
 
-import { genres } from "@/assets/constants";
+import { genres } from "@/core/constants/genres";
 
 interface props {
   genreListId: string;
   setGenreListId: Dispatch<SetStateAction<string>>;
 }
 
-const DropDown: React.FC<props> = ({ genreListId, setGenreListId }) => {
+export const DropDown: React.FC<props> = ({ genreListId, setGenreListId }) => {
   const genreTitle = genres.find(({ value }) => value === genreListId)?.title;
-
-  function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(" ");
-  }
 
   return (
     <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
@@ -52,10 +49,11 @@ const DropDown: React.FC<props> = ({ genreListId, setGenreListId }) => {
                     <span
                       onClick={(e) => setGenreListId(genre.value)}
                       className={classNames(
-                        active
-                          ? "bg-gradient-to-br from-white/10 to-[#2424bb] backdrop-blur-lg text-gray-100"
-                          : "",
-                        "block px-4 py-2 text-sm hover:cursor-pointer"
+                        "block px-4 py-2 text-sm hover:cursor-pointer",
+                        {
+                          "bg-gradient-to-br from-white/10 to-[#2424bb] backdrop-blur-lg text-gray-100":
+                            active,
+                        }
                       )}
                     >
                       {genre.title}
@@ -70,5 +68,3 @@ const DropDown: React.FC<props> = ({ genreListId, setGenreListId }) => {
     </div>
   );
 };
-
-export default DropDown;
