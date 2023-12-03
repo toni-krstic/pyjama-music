@@ -15,7 +15,11 @@ import { Error } from "./Error";
 import { TopPlayChartCard } from "./TopPlayChartCard";
 import { getSongs, serviceUrl } from "@/core/services/services";
 
-export const TopPlayChart = () => {
+interface props {
+  initialData: Songs;
+}
+
+export const TopPlayChart = ({ initialData }: props) => {
   const setCurrentSongs = useSetAtom(currentSongsAtom);
   const setCurrentIndex = useSetAtom(currentIndexAtom);
   const setIsActive = useSetAtom(isActiveAtom);
@@ -24,6 +28,7 @@ export const TopPlayChart = () => {
   const { data, error } = useSuspenseQuery<Songs>({
     queryKey: ["topCharts-TopPlay"],
     queryFn: () => getSongs(serviceUrl.topCharts()),
+    initialData: initialData,
   });
 
   const topPlays = data.tracks?.slice(0, 5);

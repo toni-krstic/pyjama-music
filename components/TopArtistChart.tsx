@@ -7,10 +7,15 @@ import { getSongs, serviceUrl } from "@/core/services/services";
 import { Error } from "./Error";
 import { ArtistCard } from "./ArtistCard";
 
-export const TopArtistChart = () => {
+interface props {
+  initialData: Songs;
+}
+
+export const TopArtistChart = ({ initialData }: props) => {
   const { data, error } = useSuspenseQuery<Songs>({
     queryKey: ["topCharts"],
     queryFn: () => getSongs(serviceUrl.topCharts()),
+    initialData: initialData,
   });
 
   if (error) return <Error />;

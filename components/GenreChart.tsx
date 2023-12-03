@@ -11,7 +11,11 @@ import { DropDown } from "./DropDown";
 import { SongCard } from "./SongCard";
 import { getSongs, serviceUrl } from "@/core/services/services";
 
-export const GenreChart = () => {
+interface props {
+  initialData: Songs;
+}
+
+export const GenreChart = ({ initialData }: props) => {
   const [genreListId, setGenreListId] = useState<string>(
     "genre-global-chart-4"
   );
@@ -21,6 +25,7 @@ export const GenreChart = () => {
   const { data, error } = useSuspenseQuery<Songs>({
     queryKey: ["songsByGenre", genreListId],
     queryFn: () => getSongs(serviceUrl.genre(genreListId)),
+    initialData: initialData,
   });
 
   if (error) return <Error />;

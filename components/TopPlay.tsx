@@ -2,8 +2,11 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { Loader } from "./Loader";
 import { TopPlayChart } from "./TopPlayChart";
+import { getSongs, serviceUrl } from "@/core/services/services";
+import { Songs } from "@/core/types";
 
-export const TopPlay = () => {
+export const TopPlay = async () => {
+  const initialData: Songs = await getSongs(serviceUrl.topCharts());
   return (
     <div className="xl:ml-6 ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col">
       <div className="w-full flex flex-col">
@@ -14,7 +17,7 @@ export const TopPlay = () => {
           </Link>
         </div>
         <Suspense fallback={<Loader />}>
-          <TopPlayChart />
+          <TopPlayChart initialData={initialData} />
         </Suspense>
       </div>
     </div>
