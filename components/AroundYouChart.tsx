@@ -10,27 +10,20 @@ import { SongCard } from "./SongCard";
 import { Loader } from "./Loader";
 import { getCountry, getSongs, serviceUrl } from "@/core/services/services";
 
-export const AroundYouChart = () => {
+interface props {
+  country: string;
+}
+
+export const AroundYouChart = ({ country }: props) => {
   const isPlaying = useAtomValue(isPlayingAtom);
   const activeSong = useAtomValue(activeSongAtom);
-
-  const {
-    data: country,
-    isLoading,
-    error: countryError,
-  } = useSuspenseQuery<string>({
-    queryKey: ["getCountry"],
-    queryFn: () => getCountry(),
-  });
-
-  if (isLoading || !country) return <Loader />;
 
   const { data, error } = useSuspenseQuery<Songs>({
     queryKey: ["songsByCountry", country],
     queryFn: () => getSongs(serviceUrl.country(country)),
   });
 
-  if (error && countryError) return <Error />;
+  if (error) return <Error />;
 
   return (
     <>
