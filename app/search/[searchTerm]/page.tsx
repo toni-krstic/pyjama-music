@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+
 import { Loader } from "@/components/Loader";
 import { SearchChart } from "@/components/SearchChart";
-import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Pyjama Music - Search",
+  description: "Stream Music By Search",
+};
 
 interface props {
   params: { searchTerm: string };

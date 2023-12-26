@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+
 import { AroundYouChart } from "@/components/AroundYouChart";
 import { Loader } from "@/components/Loader";
-import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Pyjama Music - Top Charts Around You",
+  description: "Discover Top Charts Around You",
+};
 
 export default function page() {
   return (

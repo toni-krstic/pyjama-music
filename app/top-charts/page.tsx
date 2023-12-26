@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+
 import { Loader } from "@/components/Loader";
 import { TopChart } from "@/components/TopChart";
 import { getSongs, serviceUrl } from "@/core/services/services";
 import { Songs } from "@/core/types";
-import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Pyjama Music - Top Charts",
+  description: "Stream Top Charts",
+};
 
 export default async function page() {
   const initialData: Songs = await getSongs(serviceUrl.topCharts());

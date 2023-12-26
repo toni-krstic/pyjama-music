@@ -1,8 +1,9 @@
+import { Suspense } from "react";
+
 import { GenreChart } from "@/components/GenreChart";
 import { Loader } from "@/components/Loader";
 import { getSongs, serviceUrl } from "@/core/services/services";
 import { Songs } from "@/core/types";
-import { Suspense } from "react";
 
 export default async function Home() {
   const initialData: Songs = await getSongs(
