@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import { SongCard } from "@/components";
+import { SongCard } from "@/components/SongCard";
 
 const mockSong = {
   artists: [{ alias: "example-alias", id: "123", adamid: "123456789" }],

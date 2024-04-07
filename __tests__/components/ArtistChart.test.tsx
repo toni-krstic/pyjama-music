@@ -3,8 +3,7 @@ import { render, waitFor } from "@testing-library/react";
 import { useSuspenseQuery as actualUseSuspenseQuery } from "@tanstack/react-query";
 import "@testing-library/jest-dom";
 
-import { PlayerContext } from "@/context/PlayerContext";
-import { ArtistChart } from "@/components";
+import { ArtistChart } from "@/components/ArtistChart";
 
 jest.mock("@tanstack/react-query");
 
@@ -15,7 +14,7 @@ describe("ArtistChart Component", () => {
     const mockData = {
       data: [
         {
-          id: "123",      
+          id: "123",
           attributes: {
             albumName: "example-album-name-1",
             artistName: "Example Artist 1",
@@ -47,35 +46,12 @@ describe("ArtistChart Component", () => {
       error: null,
     }));
 
-    const mockContext = {
-      currentSongs: [],
-      currentIndex: 1,
-      isActive: false,
-      isPlaying: false,
-      activeSong: undefined,
-      genreListId: "example-id",
-      selectActiveSong: jest.fn(),
-      nextSong: jest.fn(),
-      prevSong: jest.fn(),
-      playPause: jest.fn(),
-      selectGenreListId: jest.fn(),
-      getTopCharts: jest.fn(),
-      getSongsBySearch: jest.fn(),
-      getSongsByGenre: jest.fn(),
-      getSongsByCountry: jest.fn(),
-      getSongsByArtist: jest.fn(() => Promise.resolve(mockData)),
-    };
-
-    const { getByText } = render(
-      <PlayerContext.Provider value={mockContext}>
-        <ArtistChart id="123" />
-      </PlayerContext.Provider>
-    );
+    const { getByText } = render(<ArtistChart id="123" />);
 
     await waitFor(() => {
-        const artistNameElement = getByText(/Top Songs By:/i);
-        expect(artistNameElement).toBeInTheDocument();
-        expect(artistNameElement.textContent).toContain("Example Artist 1");
-      });
+      const artistNameElement = getByText(/Top Songs By:/i);
+      expect(artistNameElement).toBeInTheDocument();
+      expect(artistNameElement.textContent).toContain("Example Artist 1");
+    });
   });
 });

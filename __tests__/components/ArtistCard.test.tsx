@@ -3,7 +3,7 @@ import { render, fireEvent } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import "@testing-library/jest-dom";
 
-import { ArtistCard } from "@/components";
+import { ArtistCard } from "@/components/ArtistCard";
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
@@ -81,7 +81,7 @@ describe("ArtistCard Component", () => {
   });
 
   it("does not call router.push when song is not provided", () => {
-    const { container } = render(<ArtistCard />);
+    const { container } = render(<ArtistCard song={{}} />);
 
     const mockRouter = {
       push: jest.fn(),

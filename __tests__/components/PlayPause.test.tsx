@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import { PlayPause } from "@/components";
+import { PlayPause } from "@/components/PlayPause";
 import { Song } from "@/core/types";
 
 describe("PlayPause Component", () => {

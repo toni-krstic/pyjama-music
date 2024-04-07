@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import Seekbar from "@/components/MusicPlayer/Seekbar";
+import { Seekbar } from "@/components/MusicPlayer/Seekbar";
 
 describe("Seekbar Component", () => {
   test("renders Seekbar component correctly", () => {

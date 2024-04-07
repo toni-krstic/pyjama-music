@@ -1,10 +1,10 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import Controls from '@/components/MusicPlayer/Controls';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { Controls } from "@/components/MusicPlayer/Controls";
 import "@testing-library/jest-dom";
 
-describe('Controls Component', () => {
-  test('renders controls with play button', () => {
+describe("Controls Component", () => {
+  test("renders controls with play button", () => {
     const mockProps = {
       isPlaying: false,
       repeat: false,
@@ -19,11 +19,11 @@ describe('Controls Component', () => {
 
     render(<Controls {...mockProps} />);
 
-    const playButton = screen.getByTestId('play-button');
+    const playButton = screen.getByTestId("play-button");
     expect(playButton).toBeInTheDocument();
   });
 
-  test('handles click events correctly', () => {
+  test("handles click events correctly", () => {
     const mockProps = {
       isPlaying: false,
       repeat: false,
@@ -38,11 +38,9 @@ describe('Controls Component', () => {
 
     render(<Controls {...mockProps} />);
 
-    const playButton = screen.getByTestId('play-button');
+    const playButton = screen.getByTestId("play-button");
     fireEvent.click(playButton);
 
     expect(mockProps.handlePlayPause).toHaveBeenCalledTimes(1);
   });
-  
-  // Add more tests for other functionalities as needed
 });

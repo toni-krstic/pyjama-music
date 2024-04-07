@@ -22,13 +22,13 @@ export const SearchChart: React.FC<Props> = ({ searchTerm }) => {
     queryFn: () => getSongs(serviceUrl.search(searchTerm)),
   });
 
-  const songs = data.tracks?.hits.map((song) => song.track);
+  if (error || !data) return <Error />;
 
-  if (error || !songs) return <Error />;
+  const songs = data.tracks?.hits.map((song) => song.track);
 
   return (
     <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-      {songs.map((song, i) => (
+      {songs?.map((song, i) => (
         <SongCard
           key={song.key}
           song={song}

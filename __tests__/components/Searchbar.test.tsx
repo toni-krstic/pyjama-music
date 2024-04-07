@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import "@testing-library/jest-dom";
 
-import { Searchbar } from "@/components";
+import { Searchbar } from "@/components/Searchbar";
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),

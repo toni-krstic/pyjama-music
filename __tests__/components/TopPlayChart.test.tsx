@@ -3,8 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { useSuspenseQuery as actualUseSuspenseQuery } from "@tanstack/react-query";
 import "@testing-library/jest-dom";
 
-import { PlayerContext } from "@/context/PlayerContext";
-import { TopPlayChart } from "@/components";
+import { TopPlayChart } from "@/components/TopPlayChart";
 
 jest.mock("@tanstack/react-query");
 
@@ -16,25 +15,6 @@ describe("TopPlayChart Component", () => {
   });
 
   it("renders TopPlayChart component correctly", () => {
-    const mockContext = {
-      currentSongs: [],
-      currentIndex: 1,
-      isActive: false,
-      isPlaying: false,
-      activeSong: undefined,
-      genreListId: "example-id",
-      selectActiveSong: jest.fn(),
-      nextSong: jest.fn(),
-      prevSong: jest.fn(),
-      playPause: jest.fn(),
-      selectGenreListId: jest.fn(),
-      getTopCharts: jest.fn(),
-      getSongsBySearch: jest.fn(),
-      getSongsByGenre: jest.fn(() => Promise.resolve(mockData)),
-      getSongsByCountry: jest.fn(),
-      getSongsByArtist: jest.fn(() => Promise.resolve(mockData)),
-    };
-
     const mockData = {
       tracks: [
         {
@@ -89,11 +69,7 @@ describe("TopPlayChart Component", () => {
       error: null,
     }));
 
-    render(
-      <PlayerContext.Provider value={mockContext}>
-        <TopPlayChart />
-      </PlayerContext.Provider>
-    );
+    render(<TopPlayChart initialData={mockData} />);
 
     const mockTopPlays = mockData.tracks.slice(0, 5);
 
@@ -128,11 +104,7 @@ describe("TopPlayChart Component", () => {
       error: new Error("Test error"),
     }));
 
-    render(
-      <PlayerContext.Provider value={mockContext}>
-        <TopPlayChart />
-      </PlayerContext.Provider>
-    );
+    render(<TopPlayChart initialData={{}} />);
 
     const errorMessage = screen.getByText(
       "Something went wrong. Please try again."

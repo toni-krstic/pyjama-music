@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import { SongBar } from "@/components";
+import { SongBar } from "@/components/SongBar";
 import { Song } from "@/core/types";
 
 describe("SongBar Component", () => {

@@ -31,9 +31,9 @@ export const TopPlayChart = ({ initialData }: props) => {
     initialData: initialData,
   });
 
-  const topPlays = data.tracks?.slice(0, 5);
+  if (error || !data) return <Error />;
 
-  if (error || !topPlays) return <Error />;
+  const topPlays = data.tracks?.slice(0, 5);
 
   const handlePauseClick = () => {
     setIsPlaying(false);
@@ -53,7 +53,7 @@ export const TopPlayChart = ({ initialData }: props) => {
 
   return (
     <div className="mt-4 flex flex-col gap-1">
-      {topPlays.map((song, i) => (
+      {topPlays?.map((song, i) => (
         <TopPlayChartCard
           key={song.key}
           song={song}

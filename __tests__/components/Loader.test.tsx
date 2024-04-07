@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import { Loader } from "@/components";
+import { Loader } from "@/components/Loader";
 
 describe("Loader Component", () => {
   it("renders Loader component correctly without title", () => {

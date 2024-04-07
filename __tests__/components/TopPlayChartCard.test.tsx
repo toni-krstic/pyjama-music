@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import { TopPlayChartCard } from "@/components";
+import { TopPlayChartCard } from "@/components/TopPlayChartCard";
 import { Song } from "@/core/types";
 
 describe("TopPlayChartCard Component", () => {

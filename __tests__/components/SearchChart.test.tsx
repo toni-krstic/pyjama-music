@@ -3,8 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { useSuspenseQuery as actualUseSuspenseQuery } from "@tanstack/react-query";
 import "@testing-library/jest-dom";
 
-import { SearchChart } from "@/components";
-import { PlayerContext } from "@/context/PlayerContext";
+import { SearchChart } from "@/components/SearchChart";
 
 jest.mock("@tanstack/react-query");
 
@@ -12,25 +11,6 @@ const useSuspenseQuery = actualUseSuspenseQuery as jest.Mock;
 
 describe("SearchChart Component", () => {
   const mockSearchTerm = "test";
-
-  const mockContext = {
-    currentSongs: [],
-    currentIndex: 1,
-    isActive: false,
-    isPlaying: false,
-    activeSong: undefined,
-    genreListId: "example-id",
-    selectActiveSong: jest.fn(),
-    nextSong: jest.fn(),
-    prevSong: jest.fn(),
-    playPause: jest.fn(),
-    selectGenreListId: jest.fn(),
-    getTopCharts: jest.fn(),
-    getSongsBySearch: jest.fn(),
-    getSongsByGenre: jest.fn(),
-    getSongsByCountry: jest.fn(),
-    getSongsByArtist: jest.fn(),
-  };
   const mockData = {
     tracks: {
       hits: [
@@ -100,11 +80,7 @@ describe("SearchChart Component", () => {
   }));
 
   it("renders SearchChart component correctly", () => {
-    render(
-      <PlayerContext.Provider value={mockContext}>
-        <SearchChart searchTerm={mockSearchTerm} />
-      </PlayerContext.Provider>
-    );
+    render(<SearchChart searchTerm={mockSearchTerm} />);
 
     mockData.tracks.hits.forEach((song) => {
       const songElement = screen.getByText(song.track.title);
@@ -113,35 +89,12 @@ describe("SearchChart Component", () => {
   });
 
   it("renders Error component when there is an error", () => {
-    const mockContext = {
-      currentSongs: [],
-      currentIndex: 1,
-      isActive: false,
-      isPlaying: false,
-      activeSong: undefined,
-      genreListId: "example-id",
-      selectActiveSong: jest.fn(),
-      nextSong: jest.fn(),
-      prevSong: jest.fn(),
-      playPause: jest.fn(),
-      selectGenreListId: jest.fn(),
-      getTopCharts: jest.fn(),
-      getSongsBySearch: jest.fn(),
-      getSongsByGenre: jest.fn(),
-      getSongsByCountry: jest.fn(),
-      getSongsByArtist: jest.fn(),
-    };
-
     useSuspenseQuery.mockImplementation(() => ({
       data: null,
       error: new Error("Test error"),
     }));
 
-    render(
-      <PlayerContext.Provider value={mockContext}>
-        <SearchChart searchTerm={mockSearchTerm} />
-      </PlayerContext.Provider>
-    );
+    render(<SearchChart searchTerm={mockSearchTerm} />);
 
     const errorComponent = screen.getByText(
       "Something went wrong. Please try again."

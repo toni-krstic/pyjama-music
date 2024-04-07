@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import VolumeBar from "@/components/MusicPlayer/VolumeBar";
+import { VolumeBar } from "@/components/MusicPlayer/VolumeBar";
 
 describe("VolumeBar Component", () => {
   test("renders volume bar and icons", () => {

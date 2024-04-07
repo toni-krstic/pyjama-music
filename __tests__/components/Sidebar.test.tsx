@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import { Sidebar } from "@/components";
+import { Sidebar } from "@/components/Sidebar";
 
 describe("Sidebar Component", () => {
   it("renders Sidebar component correctly", () => {

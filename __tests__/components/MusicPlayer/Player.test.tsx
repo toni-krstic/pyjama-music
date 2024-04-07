@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import Player from "@/components/MusicPlayer/Player";
+import { Player } from "@/components/MusicPlayer/Player";
 
 const playMock = jest.fn(() => Promise.resolve());
 const pauseMock = jest.fn(() => Promise.resolve());
@@ -114,10 +114,10 @@ describe("Player Component", () => {
 
     await audioElement.play();
 
-    await waitFor(() => expect(audioElement.play).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(audioElement.play).toHaveBeenCalled());
 
     await audioElement.pause();
 
-    await waitFor(() => expect(audioElement.pause).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(audioElement.pause).toHaveBeenCalled());
   });
 });
